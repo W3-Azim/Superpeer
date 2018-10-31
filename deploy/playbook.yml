@@ -1,0 +1,18 @@
+- hosts: localhost
+  tasks:
+  - name: Build SuperPeer image
+    docker_image:
+      path: ./docker/superPeer
+      name: superpeer
+      tag: 0.1
+
+  - name: Create SuperPeer container
+    docker_container:
+      name: superpeer
+      image: superpeer:0.1
+
+  - name: Check that SuperPeer container exists
+    docker_container:
+      name: superpeer
+      image: superpeer:0.1
+      state: present
