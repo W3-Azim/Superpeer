@@ -1,6 +1,6 @@
 - hosts: localhost
   tasks:
-  - name: Build SuperPeer image
+  - name: Build Superpeer image
     docker_image:
       path: ./docker/superPeer
       name: superpeer

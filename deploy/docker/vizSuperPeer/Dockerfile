@@ -4,6 +4,9 @@ WORKDIR /home/ubuntu/superpeer
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# TODO(conorb): install JRE and copy over Superpeer binary
+RUN apt-get update && apt-get install -y openjdk-8-jre
+
+COPY Superpeer /usr/bin
+RUN chmod +x /usr/bin/Superpeer
 
 EXPOSE 40000/udp
