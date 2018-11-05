@@ -1,4 +1,5 @@
-- hosts: localhost
+- hosts: all
+  roles: [ 'base' ]
   tasks:
   - name: Build Superpeer image
     docker_image:
