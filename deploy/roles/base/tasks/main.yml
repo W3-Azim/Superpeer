@@ -39,7 +39,6 @@
 - name: Install Docker
   package:
     name: docker-ce
-    allow_unauthenticated: yes
     state: present
 
 - name: Install docker-py
