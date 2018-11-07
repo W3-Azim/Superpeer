@@ -3,8 +3,8 @@
 # --- Adapted from https://github.com/paritytech/scripts under Apache 2.0 license ---
 
 ## Update this with any new release!
-VERSION_STABLE="1.8.6"
-VERSION_BETA="1.8.6"
+VERSION_STABLE="2.0.9"
+VERSION_BETA="2.1.4"
 ##
 
 BETA="beta"
