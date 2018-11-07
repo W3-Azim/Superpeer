@@ -1,19 +1,16 @@
 - hosts: all
   roles: [ 'base' ]
   tasks:
-  - name: Build Superpeer image
-    docker_image:
-      path: ./docker/superPeer
-      name: superpeer
-      tag: 0.1
 
-  - name: Build Parity image
-    docker_image:
-      path: ./docker/parity
-      name: parity
-      tag: 0.1
+  - name: Copy pre-built Docker images to remote
+    copy:
+      src: docker/images
+      dest: ~/build
 
-  - name: Create SuperPeer container
-    docker_container:
-      name: superpeer
-      image: superpeer:0.1
+  - name: Check SuperPeer image exists
+    stat:
+      path: ~/build/docker/images/superPeer.tar
+    register: image
+  - debug:
+      msg: "Image file exists"
+    when: image.stat.exists is defined
