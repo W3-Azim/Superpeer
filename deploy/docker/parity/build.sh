@@ -10,7 +10,7 @@ VERSION_BETA="1.8.6"
 BETA="beta"
 STABLE="stable"
 
-RELEASE="stable"
+RELEASE="$STABLE"
 ARCH=$(uname -m)
 VANITY_SERVICE_URL="https://vanity-service.parity.io/parity-binaries?architecture=$ARCH&format=markdown"
 PKG="linux"
@@ -33,7 +33,7 @@ get_binary() {
 }
 
 help() {
-    echo "Usage: $0 [-r <beta|stable>]" 1>&2;
+    echo "Usage: $0 [-r <$BETA|$STABLE>]" 1>&2;
     exit 1
 }
 
