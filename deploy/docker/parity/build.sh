@@ -7,6 +7,9 @@ VERSION_STABLE="1.8.6"
 VERSION_BETA="1.8.6"
 ##
 
+BETA="beta"
+STABLE="stable"
+
 RELEASE="stable"
 ARCH=$(uname -m)
 VANITY_SERVICE_URL="https://vanity-service.parity.io/parity-binaries?architecture=$ARCH&format=markdown"
@@ -15,9 +18,9 @@ DOCKER_TAG=0.1
 
 
 get_binary() {
-	if [ "$RELEASE" = "beta" ]; then
+	if [ "$RELEASE" = "$BETA" ]; then
 		LOOKUP_URL="$VANITY_SERVICE_URL&os=$PKG&version=v$VERSION_BETA"
-	elif [ "$RELEASE" = "stable" ]; then
+	elif [ "$RELEASE" = "$STABLE" ]; then
 		LOOKUP_URL="$VANITY_SERVICE_URL&os=$PKG&version=v$VERSION_STABLE"
 	else
 		LOOKUP_URL="$VANITY_SERVICE_URL&os=$PKG&version=$RELEASE"
@@ -27,6 +30,11 @@ get_binary() {
   DOWNLOAD_FILE=$(echo $MD | grep -oE 'https://[^)]+')
   echo "Downloading: $DOWNLOAD_FILE"
   curl -Ss -O $DOWNLOAD_FILE
+}
+
+help() {
+    echo "Usage: $0 [-r <beta|stable>]" 1>&2;
+    exit 1
 }
 
 ## MAIN ##
@@ -39,18 +47,27 @@ if [[ $? -ne 0 ]] ; then
 fi
 ##
 
-while [ "$1" != "" ]; do
-	case $1 in
-	-r | --release )           shift
-		RELEASE=$1
-		;;
-	* )  	help
-		exit 1
-		esac
-	shift
-	done
+while getopts ":r:" release; do
+  case $release in
+    r)
+        if [[ "$OPTARG" != "$STABLE" ]] && [[ "$OPTARG" != "$BETA" ]]
+        then
+            help
+        fi
+        RELEASE=$OPTARG
+        ;;
+    \?)
+        echo "Invalid option: -$OPTARG" >&2
+        help
+        ;;
+    :)
+        echo "Option -$OPTARG requires an argument." >&2
+        help
+        ;;
+  esac
+done
 
-	echo "Release selected is: $RELEASE"
+echo "Release selected is: $RELEASE"
 
 get_binary
 docker build -t "parity:$DOCKER_TAG" .
