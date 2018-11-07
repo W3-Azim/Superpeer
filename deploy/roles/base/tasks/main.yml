@@ -23,6 +23,11 @@
   - gpg
   shell: curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 
+- name: Add Canadian Ubuntu sources mirror
+  apt_repository:
+    repo: deb http://ca.archive.ubuntu.com/ubuntu/ bionic main
+    state: present
+
 - name: Install pip3
   tags:
   - install
@@ -41,8 +46,8 @@
     name: docker-ce
     state: latest
 
-- name: Install docker-py
+- name: Install Python Docker for Ansible Docker extension
   pip:
-    name: docker-py
+    name: docker
     state: latest
 
