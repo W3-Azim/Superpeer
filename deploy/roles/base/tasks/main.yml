@@ -28,7 +28,7 @@
   - install
   apt:
     name: python3-pip
-    state: present
+    state: latest
 
 - name: Set the stable docker repository
   apt_repository:
@@ -39,10 +39,10 @@
 - name: Install Docker
   package:
     name: docker-ce
-    state: present
+    state: latest
 
 - name: Install docker-py
   pip:
     name: docker-py
-    state: present
+    state: latest
 
