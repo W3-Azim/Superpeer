@@ -5,7 +5,10 @@ WORKDIR /home/ubuntu/parity
 ENV DEBIAN_FRONTEND noninteractive
 
 # Parity expects libssl shared object
-RUN apt-get update && apt-get install -y libssl1.0.0 libssl-dev
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository 'deb http://ca.archive.ubuntu.com/ubuntu/ bionic main' && \
+    apt-get install -y libssl1.0.0 libssl-dev
 
 # Install & run Parity
 COPY parity /usr/bin

@@ -14,6 +14,10 @@ gradleBinary:
 $(SUBDIRS): gradleBinary
 	$(MAKE) -C $@
 
+saveImages: $(SUBDIRS)
+	docker save --output parity.tar parity:$(DOCKER_TAG)
+	docker save --output superPeer.tar superpeer:$(DOCKER_TAG)
+
 # Parity must be built before SP and vizSP
 superPeer: parity
 vizSuperPeer: parity
