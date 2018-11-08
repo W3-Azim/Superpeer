@@ -9,7 +9,8 @@ RUN apt-get update && \
     add-apt-repository 'deb http://ca.archive.ubuntu.com/ubuntu/ bionic main' && \
     apt-get install -y openjdk-8-jre
 
-COPY Superpeer /usr/bin
-RUN chmod +x /usr/bin/Superpeer
+COPY Superpeer /usr/bin/Superpeer
+RUN chmod -R +x /usr/bin/Superpeer
 
 EXPOSE 40000/udp
+CMD "./usr/bin/Superpeer/bin/Superpeer"

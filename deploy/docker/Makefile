@@ -1,5 +1,5 @@
 SUBDIRS = parity superPeer vizSuperPeer
-APP_BIN_DIR=build/install/Superpeer/bin
+APP_BIN_DIR=build/install
 DOCKER_DIR=deploy/docker
 export DOCKER_TAG = 0.1
 
@@ -9,7 +9,7 @@ subdirs: $(SUBDIRS)
 
 gradleBinary:
 	( cd ../.. && ./gradlew installDist && \
-		echo $(DOCKER_DIR)/superPeer $(DOCKER_DIR)/vizSuperPeer | xargs -n 1 cp $(APP_BIN_DIR)/Superpeer )
+		echo $(DOCKER_DIR)/superPeer $(DOCKER_DIR)/vizSuperPeer | xargs -n 1 cp -R $(APP_BIN_DIR)/Superpeer )
 
 $(SUBDIRS): gradleBinary
 	$(MAKE) -C $@
