@@ -35,3 +35,4 @@
       image: superpeer:0.1
       pull: no
       state: started
+      command: "/bin/bash -c /usr/bin/Superpeer/bin/Superpeer"

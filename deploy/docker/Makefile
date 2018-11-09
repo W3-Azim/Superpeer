@@ -14,7 +14,7 @@ gradleBinary:
 $(SUBDIRS): gradleBinary
 	$(MAKE) -C $@
 
-saveImages: $(SUBDIRS)
+all: $(SUBDIRS)
 	mkdir -p images
 	docker save --output images/parity.tar parity:$(DOCKER_TAG)
 	docker save --output images/superPeer.tar superpeer:$(DOCKER_TAG)
