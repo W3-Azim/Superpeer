@@ -20,20 +20,13 @@
   tags:
   - packages
   apt:
-    name: ['apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common']
-    state: latest
+    name: ['apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip']
+    state: present
 
 - name: Add official Docker GPG key
   tags:
   - gpg
   shell: curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-
-- name: Install pip3
-  tags:
-  - install
-  apt:
-    name: python3-pip
-    state: latest
 
 - name: Set the stable docker repository
   apt_repository:
@@ -44,10 +37,10 @@
 - name: Install Docker
   package:
     name: docker-ce
-    state: latest
+    state: present
 
 - name: Install Python Docker for Ansible Docker extension
   pip:
     name: docker
-    state: latest
+    state: present
 
