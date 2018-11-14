@@ -35,4 +35,6 @@
       image: superpeer:0.1
       pull: no
       state: started
+      published_ports:
+        - 0.0.0.0:40000:40000/udp
       command: "/bin/bash -c /usr/bin/Superpeer/bin/Superpeer"
