@@ -52,6 +52,9 @@ This repo contains everything needed to set up a Superpeer as a service on Ubunt
     - `sudo cp superpeer.service /etc/systemd/system/`
 10. Enable the superpeer systemctl unit
     - `sudo systemctl enable superpeer`
+    
+## Automated Deployment
+It is possible to automatically deploy Superpeers. See the [deployment README](deploy/README.md).
 
 ## Interacting with a Superpeer
 

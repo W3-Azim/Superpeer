@@ -1,0 +1,40 @@
+- hosts: all
+  roles: [ 'base' ]
+  tasks:
+  - name: Copy pre-built Docker images to remote
+    copy:
+      src: docker/images
+      dest: /tmp
+      mode: 0755
+
+  - name: Check SuperPeer image exists
+    stat:
+      path: /tmp/images/superPeer.tar
+    register: image
+  - debug:
+      msg: "Image file exists"
+    when: image.stat.exists is defined
+
+  - name: Load SuperPeer image file into Docker
+    docker_image:
+      name: superpeer
+      tag: 0.1
+      push: no
+      load_path: /tmp/images/superPeer.tar
+
+  - name: Load Parity image file into Docker
+    docker_image:
+      name: parity
+      tag: 0.1
+      push: no
+      load_path: /tmp/images/parity.tar
+
+  - name: Run SuperPeer
+    docker_container:
+      name: superpeer
+      image: superpeer:0.1
+      pull: no
+      state: started
+      published_ports:
+        - 0.0.0.0:40000:40000/udp
+      command: "/bin/bash -c /usr/bin/Superpeer/bin/Superpeer"

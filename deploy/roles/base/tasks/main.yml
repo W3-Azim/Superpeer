@@ -1,0 +1,46 @@
+- name: Add Canadian Ubuntu sources mirror
+  apt_repository:
+    repo: deb http://ca.archive.ubuntu.com/ubuntu/ bionic main
+    state: present
+
+- name: Update apt cache
+  tags:
+  - update
+  apt:
+    update_cache: yes
+
+- name: Upgrade system
+  tags:
+  - upgrade
+  apt:
+    upgrade: dist
+
+# For installing Docker CE. See: https://docs.docker.com/install/linux/docker-ce/debian/#set-up-the-repository
+- name: Install basic dependencies
+  tags:
+  - packages
+  apt:
+    name: ['apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip']
+    state: present
+
+- name: Add official Docker GPG key
+  tags:
+  - gpg
+  shell: curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+
+- name: Set the stable docker repository
+  apt_repository:
+    repo: "deb https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} edge"
+    state: present
+    update_cache: yes
+
+- name: Install Docker
+  package:
+    name: docker-ce
+    state: present
+
+- name: Install Python Docker for Ansible Docker extension
+  pip:
+    name: docker
+    state: present
+
