@@ -11,6 +11,12 @@ local.properties
 bin/
 .vagrant
 
+# Build process
+deploy/docker/parity/parity
+deploy/docker/superPeer/superpeer
+deploy/docker/vizSuperPeer/Superpeer
+*-cloudimg-console.log
+
 #license
 src/main/assets/
 
