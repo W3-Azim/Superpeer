@@ -9,6 +9,7 @@ local.properties
 .project
 .settings/
 bin/
+.vagrant
 
 #license
 src/main/assets/
