@@ -10,6 +10,7 @@ local.properties
 .settings/
 bin/
 .vagrant
+*.retry
 
 # Build process
 deploy/docker/parity/parity
