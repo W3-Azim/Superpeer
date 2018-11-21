@@ -49,10 +49,11 @@ processResources {
     dependsOn rightmesh
     from rightmesh.outputFile
 }
-
+def defaultDebugPort='9099'
 tasks.withType(JavaExec) {
-    if (System.getProperty('DEBUG', 'false') == 'true') {
-        jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9099'
+    if (System.getProperty('debug', 'false') == 'true') {
+        def port = System.getProperty('debugPort', defaultDebugPort)
+        jvmArgs '-Xdebug', "-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=$port"
     }
 }
 
