@@ -49,6 +49,13 @@ processResources {
     dependsOn rightmesh
     from rightmesh.outputFile
 }
+def defaultDebugPort='9099'
+tasks.withType(JavaExec) {
+    if (System.getProperty('debug', 'false') == 'true') {
+        def port = System.getProperty('debugPort', defaultDebugPort)
+        jvmArgs '-Xdebug', "-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=$port"
+    }
+}
 
 applicationDefaultJvmArgs = ["-noverify"]
 mainClassName = 'SuperPeer'
