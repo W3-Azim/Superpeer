@@ -1,15 +1,5 @@
 package ether;
 
-import static io.left.rightmesh.mesh.MeshManager.TRANSACTION_RECEIVED;
-
-import io.left.rightmesh.id.MeshId;
-import io.left.rightmesh.mesh.JavaMeshManager;
-import io.left.rightmesh.mesh.MeshManager;
-import io.left.rightmesh.proto.MeshTransaction;
-import io.left.rightmesh.util.EtherUtility;
-import io.left.rightmesh.util.MeshUtility;
-import io.left.rightmesh.util.RightMeshException;
-
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -19,7 +9,19 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.concurrent.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
+import io.left.rightmesh.id.MeshId;
+import io.left.rightmesh.mesh.JavaMeshManager;
+import io.left.rightmesh.mesh.MeshManager;
+import io.left.rightmesh.proto.MeshTransaction;
+import io.left.rightmesh.util.EtherUtility;
+import io.left.rightmesh.util.MeshUtility;
+import io.left.rightmesh.util.RightMeshException;
+import io.reactivex.functions.Consumer;
+
+import static io.left.rightmesh.mesh.MeshManager.TRANSACTION_RECEIVED;
 
 
 /**
@@ -53,7 +55,8 @@ public final class TransactionsManager {
         httpAgent = new Http(Settings.RPC_ADDRESS, Settings.DEBUG_INFO);
         meshManager = (JavaMeshManager) mm;
         ownMeshId = mm.getUuid();
-        mm.on(TRANSACTION_RECEIVED, this::handleTransactionPacket);
+//        mm.on(TRANSACTION_RECEIVED, this::handleTransactionPacket);
+        mm.on(TRANSACTION_RECEIVED, (Consumer) o -> handleTransactionPacket((MeshManager.RightMeshEvent) o));
     }
 
 

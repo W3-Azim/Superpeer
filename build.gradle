@@ -10,20 +10,25 @@ buildscript {
         artifactory_app_username = "${rightmesh_artifactory_username}"
         artifactory_app_password = "${rightmesh_artifactory_password}"
         artifactory_app_key = "${rightmesh_superpeer_key}"
+
+        username = artifactory_app_username
+        password = artifactory_app_password
+        appKey = artifactory_app_key
     }
     repositories {
-        mavenCentral()
-        jcenter()
+        google()
         maven {
-            url "https://research.rightmesh.io/artifactory/libs-local"
+            url "https://artifactory.rightmesh.io/artifactory/maven"
             credentials {
                 username rightmesh_artifactory_username
                 password rightmesh_artifactory_password
             }
         }
+        mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath 'io.left.rightmesh:rightmesh-plugin:1.6'
+        classpath 'io.left.rightmesh:rightmesh-plugin:1.8.4'
     }
 }
 
@@ -36,18 +41,18 @@ apply plugin: 'io.left.rightmesh.rightmesh-plugin'
 build.dependsOn("rightmesh")
 
 repositories {
-    mavenCentral()
     maven {
-        url "https://dl.bintray.com/ethereum/maven/"
-    }
-    jcenter()
-    maven {
-        url "https://research.rightmesh.io/artifactory/libs-local"
+        url "https://artifactory.rightmesh.io/artifactory/maven"
         credentials {
             username rightmesh_artifactory_username
             password rightmesh_artifactory_password
         }
     }
+    maven {
+        url "https://dl.bintray.com/ethereum/maven/"
+    }
+    mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -59,6 +64,18 @@ dependencies {
     implementation 'org.ethereum:ethereumj-core:1.4.5-RELEASE'
     implementation 'mysql:mysql-connector-java:5.1.13'
     implementation 'io.github.cdimascio:java-dotenv:3.1.1'
+
+    implementation "io.reactivex.rxjava2:rxjava:2.1.7"
+    implementation 'com.google.dagger:dagger:2.10'
+    annotationProcessor "com.google.dagger:dagger-compiler:2.10"
+    implementation (group: 'com.lambdaworks', name: 'scrypt', version: '1.4.0')
+    //hex encoding and decoding for meshid
+    implementation (group: 'commons-codec', name: 'commons-codec', version: '1.5')
+    //encryption stuff for meshid
+    implementation ('org.kocakosm:pitaya:0.3')
+    implementation ('com.madgag.spongycastle:prov:1.54.0.0')
+    implementation ('com.madgag.spongycastle:pkix:1.54.0.0')
+    implementation 'org.whispersystems:signal-protocol-android:2.4.0'
 
     testCompile 'junit:junit:4.12'
 }
