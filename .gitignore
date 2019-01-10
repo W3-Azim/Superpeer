@@ -36,6 +36,7 @@ gradle-app.setting
 #idea
 .idea/
 out/
+bin
 
 #Ether logs folder
 logs/
