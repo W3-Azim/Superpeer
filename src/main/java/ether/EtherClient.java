@@ -1,18 +1,18 @@
 package ether;
 
-import io.left.rightmesh.id.MeshId;
-import io.left.rightmesh.util.ConversionUtility;
-import io.left.rightmesh.util.EtherUtility;
-import io.left.rightmesh.util.MeshUtility;
-import io.left.rightmesh.util.ConversionUtility;
 import org.apache.commons.codec.binary.Hex;
 import org.ethereum.core.CallTransaction;
 import org.ethereum.core.Transaction;
 import org.ethereum.util.ByteUtil;
 import org.json.simple.JSONObject;
+
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Arrays;
+
+import io.left.rightmesh.id.MeshId;
+import io.left.rightmesh.util.ConversionUtility;
+import io.left.rightmesh.util.EtherUtility;
 
 
 /**
