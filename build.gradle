@@ -1,12 +1,13 @@
 buildscript {
     repositories {
+        mavenLocal()
         mavenCentral()
     }
 }
 
 plugins {
     id 'application'
-    id 'io.left.rightmesh.rightmesh-plugin' version '1.8.1'
+    id 'io.left.rightmesh.rightmesh-plugin' version '1.8.4'
 }
 
 rightmesh {
@@ -24,10 +25,10 @@ repositories {
     jcenter()
     maven { url 'https://jitpack.io' }
     maven {
-        url "https://artifactory-internal.rightmesh.io/artifactory/maven"
+        url "https://artifactory.rightmesh.io/artifactory/maven"
         credentials {
-            username rightmesh_build_username_internal
-            password rightmesh_build_password_internal
+            username rightmesh_build_username
+            password rightmesh_build_password
         }
     }
 }
@@ -36,7 +37,9 @@ dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     implementation 'org.apache.httpcomponents:httpclient:4.3.4'
     implementation 'com.google.guava:guava:23.0'
-    implementation 'io.left.rightmesh:lib-rightmesh-jre-int:0.10.0'
+//    implementation 'io.left.rightmesh:lib-rightmesh-jre-dev:0.10.0'
+//    implementation 'io.left.rightmesh:lib-rightmesh-jre:0.10.0'
+    implementation 'io.left.rightmesh:lib-rightmesh-jre-dev:AZIMW3-SNAPSHOT'
     // https://mvnrepository.com/artifact/org.ethereum/ethereumj-core
     implementation 'org.ethereum:ethereumj-core:1.4.5-RELEASE'
     implementation 'mysql:mysql-connector-java:5.1.13'
@@ -59,3 +62,9 @@ tasks.withType(JavaExec) {
 
 applicationDefaultJvmArgs = ["-noverify"]
 mainClassName = 'SuperPeer'
+
+allprojects {
+    repositories {
+        mavenLocal()
+    }
+}
